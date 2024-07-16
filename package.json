@@ -1,0 +1,55 @@
+{
+  "name": "",
+  "author": "Yuma-Satake",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "src/main.tsx",
+  "engines": {
+    "node": "18.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/.git"
+  },
+  "scripts": {
+    "dev": "vite --mode dev --host",
+    "build": "pnpm build:dev",
+    "build:dev": "tsc && vite build --mode dev",
+    "build:analyze": "tsc && vite build --mode dev",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 && tsc --noEmit",
+    "format": "prettier --write ./",
+    "check": "pnpm lint && pnpm format",
+    "prepare": "pnpm dlx husky install"
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.20",
+    "@mui/material": "^5.15.20",
+    "@tanstack/react-query": "^5.48.0",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "axios": "^1.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.24.0",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "vite": "^5.2.13"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.14.1",
+    "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.34.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "husky": "^9.0.11",
+    "prettier": "^3.3.2",
+    "typescript": "^5.5.2"
+  }
+}
