@@ -24,7 +24,7 @@ export const IndexPage: FC = () => {
         width: screen.width,
         height: screen.height,
         wireframes: false,
-        background: '#fff',
+        background: 'transparent',
       },
     });
 
@@ -41,12 +41,13 @@ export const IndexPage: FC = () => {
     const string = Constraint.create({
       pointA: { x: screen.width / 2, y: screen.height / 4 },
       bodyB: omamori,
-      pointB: { x: 0, y: -50 },
+      pointB: { x: 5, y: -48 },
       length: 150,
-      stiffness: 0.9,
+      stiffness: 1.1,
       render: {
-        lineWidth: 5, // 紐を太くする
-        strokeStyle: '#FFC0CB', // 紐の色を淡いピンクに設定
+        lineWidth: 4,
+        // strokeStyle: '#FFC0CB', // 紐の色を淡いピンクに設定
+        strokeStyle: 'white', // 紐の色を白に設定
       },
     });
 
@@ -91,7 +92,20 @@ export const IndexPage: FC = () => {
 
   return (
     <>
-      <div ref={scene} />;
+      <div ref={scene} />
+      <Box
+        sx={{
+          position: 'fixed',
+          inset: 0,
+          width: '100dvw',
+          height: '100dvh',
+          background: 'linear-gradient(to bottom right, #ffccff, #ff99cc)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: -1,
+        }}
+      />
     </>
   );
 };
