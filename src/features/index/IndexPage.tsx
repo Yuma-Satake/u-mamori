@@ -1,9 +1,10 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import Matter from 'matter-js';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 
 export const IndexPage: FC = () => {
   const scene = useRef(null);
+  const [isDisplayButton, setIsDisplayButton] = useState(true);
 
   const [displayedText, setDisplayedText] = useState('');
   const text = '試験がんばももかー！⛩️';
@@ -90,6 +91,7 @@ export const IndexPage: FC = () => {
     };
 
     const requestOrientationPermission = () => {
+      setIsDisplayButton(false);
       if (
         typeof DeviceOrientationEvent !== 'undefined' &&
         // eslint-disable-next-line
@@ -160,7 +162,22 @@ export const IndexPage: FC = () => {
           sx={{
             height: '85%',
           }}
+          spacing={3}
         >
+          {isDisplayButton && (
+            <Button
+              sx={{
+                pointerEvents: 'auto',
+                position: 'absolute',
+                zIndex: 30,
+                bottom: '5%',
+              }}
+              variant="outlined"
+              size="small"
+            >
+              <Typography variant="caption">ここをタップ！</Typography>
+            </Button>
+          )}
           <Typography
             variant="h6"
             sx={{
