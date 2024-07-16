@@ -6,19 +6,20 @@ export const IndexPage: FC = () => {
   const scene = useRef(null);
 
   const [displayedText, setDisplayedText] = useState('');
-  const text = '試験がんばってー！⛩️';
-  const speed = 150;
+  const text = '試験がんばももかー！⛩️';
+  const speed = 300;
 
   useEffect(() => {
     let index = 0;
-    const intervalId = setInterval(() => {
+    const typeText = () => {
       const newText = text.slice(0, index + 1);
       setDisplayedText(newText);
       index += 1;
       if (index === text.length) {
-        clearInterval(intervalId);
+        index = 0; // Reset index to start over
       }
-    }, speed);
+    };
+    const intervalId = setInterval(typeText, speed);
 
     return () => clearInterval(intervalId); // Clean up the interval on component unmount
   }, [text, speed]);
@@ -63,8 +64,8 @@ export const IndexPage: FC = () => {
       length: 150,
       stiffness: 1.1,
       render: {
-        lineWidth: 4,
-        strokeStyle: 'white', // 紐の色を白に設定
+        lineWidth: 6,
+        strokeStyle: '#FFC0CB', // 紐の色を淡いピンクに設定
       },
     });
 
@@ -116,7 +117,10 @@ export const IndexPage: FC = () => {
           inset: 0,
           width: '100dvw',
           height: '100dvh',
-          background: 'linear-gradient(to bottom right, #ffccff, #ff99cc)',
+          // background: 'linear-gradient(to bottom right, #ffccff, #ff99cc)',
+          backgroundImage: 'url(/background.png)',
+          backgroundSize: 'cover',
+          borderRadius: '50px 0 50px 0',
           zIndex: -1,
         }}
       >
@@ -131,7 +135,7 @@ export const IndexPage: FC = () => {
             variant="h6"
             sx={{
               fontWeight: 'bold',
-              color: 'white',
+              opacity: 0.95,
             }}
           >
             {displayedText}
