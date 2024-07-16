@@ -75,15 +75,43 @@ export const IndexPage: FC = () => {
     const runner = Runner.create();
     Runner.run(runner, engine);
 
-    // Add periodic force to make the omamori swing
-    Events.on(engine, 'beforeUpdate', () => {
-      const randomX = (Math.random() - 0.5) * 0.001; // Random small force in x direction
-      const randomY = (Math.random() - 0.5) * 0.001; // Random small force in y direction
+    const handleDeviceOrientation = (event: DeviceOrientationEvent) => {
+      const tiltX = event.gamma ?? 0; // 横の傾き（-90から90の範囲）
+      const tiltY = event.beta ?? 0; // 縦の傾き（-180から180の範囲）
+
+      const forceMagnitude = 0.001;
+      const forceX = (tiltX / 50) * forceMagnitude;
+      const forceY = (tiltY / 160) * forceMagnitude;
+
       Matter.Body.applyForce(omamori, omamori.position, {
-        x: randomX,
-        y: randomY,
+        x: forceX,
+        y: forceY,
       });
-    });
+    };
+
+    const requestOrientationPermission = () => {
+      if (
+        typeof DeviceOrientationEvent !== 'undefined' &&
+        // eslint-disable-next-line
+        // @ts-ignore
+        typeof DeviceOrientationEvent.requestPermission === 'function'
+      ) {
+        // eslint-disable-next-line
+        // @ts-ignore
+        DeviceOrientationEvent.requestPermission()
+          // eslint-disable-next-line
+          // @ts-ignore
+          .then((permissionState) => {
+            if (permissionState === 'granted') {
+              window.addEventListener('deviceorientation', handleDeviceOrientation);
+            }
+          });
+      } else {
+        window.addEventListener('deviceorientation', handleDeviceOrientation);
+      }
+    };
+
+    window.addEventListener('click', requestOrientationPermission);
 
     const handleResize = () => {
       const newSize = updateScreenSize();
@@ -105,6 +133,8 @@ export const IndexPage: FC = () => {
       render.canvas.remove();
       render.textures = {};
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('deviceorientation', handleDeviceOrientation);
+      window.removeEventListener('click', requestOrientationPermission);
     };
   }, []);
 
