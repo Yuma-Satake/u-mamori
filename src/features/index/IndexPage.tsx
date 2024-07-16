@@ -34,7 +34,7 @@ export const IndexPage: FC = () => {
   const screen = updateScreenSize();
 
   useEffect(() => {
-    const { Engine, Render, Runner, Bodies, Composite, Constraint, Events } = Matter;
+    const { Engine, Render, Runner, Bodies, Composite, Constraint } = Matter;
     const engine = Engine.create();
     const render = Render.create({
       element: scene.current,
@@ -80,8 +80,8 @@ export const IndexPage: FC = () => {
       const tiltY = event.beta ?? 0; // 縦の傾き（-180から180の範囲）
 
       const forceMagnitude = 0.001;
-      const forceX = (tiltX / 50) * forceMagnitude;
-      const forceY = (tiltY / 160) * forceMagnitude;
+      const forceX = (tiltX / 40) * forceMagnitude;
+      const forceY = (tiltY / 150) * forceMagnitude;
 
       Matter.Body.applyForce(omamori, omamori.position, {
         x: forceX,
@@ -150,7 +150,7 @@ export const IndexPage: FC = () => {
           // background: 'linear-gradient(to bottom right, #ffccff, #ff99cc)',
           backgroundImage: 'url(/background.png)',
           backgroundSize: 'cover',
-          borderRadius: '50px 0 50px 0',
+          borderRadius: '100px 0 100px 0',
           zIndex: -1,
         }}
       >
@@ -172,6 +172,16 @@ export const IndexPage: FC = () => {
           </Typography>
         </Stack>
       </Box>
+      <Box
+        sx={{
+          position: 'fixed',
+          width: '100dvw',
+          height: '100dvh',
+          inset: 0,
+          zIndex: -3,
+          bgcolor: '#F3FFFD',
+        }}
+      />
     </>
   );
 };
