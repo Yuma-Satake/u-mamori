@@ -1,9 +1,27 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import Matter from 'matter-js';
-import { Box } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 
 export const IndexPage: FC = () => {
   const scene = useRef(null);
+
+  const [displayedText, setDisplayedText] = useState('');
+  const text = '試験がんばってー！⛩️';
+  const speed = 150;
+
+  useEffect(() => {
+    let index = 0;
+    const intervalId = setInterval(() => {
+      const newText = text.slice(0, index + 1);
+      setDisplayedText(newText);
+      index += 1;
+      if (index === text.length) {
+        clearInterval(intervalId);
+      }
+    }, speed);
+
+    return () => clearInterval(intervalId); // Clean up the interval on component unmount
+  }, [text, speed]);
 
   const updateScreenSize = () => {
     return {
@@ -46,7 +64,6 @@ export const IndexPage: FC = () => {
       stiffness: 1.1,
       render: {
         lineWidth: 4,
-        // strokeStyle: '#FFC0CB', // 紐の色を淡いピンクに設定
         strokeStyle: 'white', // 紐の色を白に設定
       },
     });
@@ -100,12 +117,27 @@ export const IndexPage: FC = () => {
           width: '100dvw',
           height: '100dvh',
           background: 'linear-gradient(to bottom right, #ffccff, #ff99cc)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
           zIndex: -1,
         }}
-      />
+      >
+        <Stack
+          justifyContent="flex-end"
+          alignItems="center"
+          sx={{
+            height: '85%',
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: 'bold',
+              color: 'white',
+            }}
+          >
+            {displayedText}
+          </Typography>
+        </Stack>
+      </Box>
     </>
   );
 };
