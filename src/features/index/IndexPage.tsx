@@ -7,13 +7,32 @@ export const IndexPage: FC = () => {
   const [isDisplayButton, setIsDisplayButton] = useState(true);
 
   const [displayedText, setDisplayedText] = useState('');
-  const text = 'ももかが頑張れますように🍰';
+  const text = 'ももか頑張ってえらい！';
   const speed = 300;
 
   useEffect(() => {
     let index = 0;
     const typeText = () => {
-      const newText = text.slice(0, index + 1);
+      const newText = (() => {
+        const emojis = [
+          '🍰',
+          '🍓',
+          '🧁',
+          '🎉',
+          '👏',
+          '🎈',
+          '✨',
+          '🎊',
+          '🎂',
+          '🍒',
+          '🥳',
+          '🎶',
+          '🎁',
+        ];
+        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+        if (index >= text.length - 1) return text + randomEmoji;
+        return text.slice(0, index + 1);
+      })();
       setDisplayedText(newText);
       index += 1;
       if (index === text.length) {
