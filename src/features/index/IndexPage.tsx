@@ -7,7 +7,7 @@ export const IndexPage: FC = () => {
   const [isDisplayButton, setIsDisplayButton] = useState(true);
 
   const [displayedText, setDisplayedText] = useState('');
-  const text = '試験がんばももかー！⛩️';
+  const text = 'ももかが頑張れますように🍰';
   const speed = 300;
 
   useEffect(() => {
